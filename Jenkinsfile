@@ -2,7 +2,7 @@ pipeline {
     agent any
     environment {
         //be sure to replace "bhavukm" with your own Docker Hub username
-        DOCKER_IMAGE_NAME = "lateu/train-schedule"
+        DOCKER_IMAGE_NAME = "rlateu/train-schedule"
     }
     stages {
         stage('Build') {
@@ -16,10 +16,11 @@ pipeline {
          
             steps {
                 script {
-                    app = docker.build(DOCKER_IMAGE_NAME)
+                    sh 'docker build -t lateu/train-schedule:v1.0 .'
+                    /*app = docker.build(DOCKER_IMAGE_NAME)
                     app.inside {
                         sh 'echo Hello, World!'
-                    }
+                    }*/
                 }
             }
         }
@@ -27,10 +28,16 @@ pipeline {
          
             steps {
                 script {
-                    docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
+                    
+                    withCredentials([string(credentialsId: 'docker-secret', variable: 'dockersecret')]) {
+                  bat 'docker login -u  rlateu -p ${dockersecret}'
+				  bat 'docker push rlateu/accademy:v1.0'
+                 }
+                    
+                    /*docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
                         app.push("${env.BUILD_NUMBER}")
                         app.push("latest")
-                    }
+                    }*/
                 }
             }
         }
