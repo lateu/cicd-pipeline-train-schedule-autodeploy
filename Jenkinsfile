@@ -16,7 +16,7 @@ pipeline {
          
             steps {
                 script {
-                    sh 'docker build -t lateu/train-schedule:v1.0 .'
+                    sh 'docker build -t rlateu/train-schedule:v1.0 .'
                     /*app = docker.build(DOCKER_IMAGE_NAME)
                     app.inside {
                         sh 'echo Hello, World!'
