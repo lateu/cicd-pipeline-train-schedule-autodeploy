@@ -31,7 +31,7 @@ pipeline {
                     
                    withCredentials([string(credentialsId: 'docker-secret', variable: 'dockersecret')]) {
                     sh 'docker login -u  rlateu -p ${dockersecret}'
-		    sh 'docker push rlateu/accademy:v1.0'
+		    sh 'docker push rlateu/train-schedule:v1.0'
                  }
                     
                     /*docker.withRegistry('https://registry.hub.docker.com', 'docker_hub_login') {
