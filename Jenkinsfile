@@ -29,7 +29,7 @@ pipeline {
             steps {
                 script {
                     
-                    withCredentials([string(credentialsId: 'docker-secret', variable: 'dockersecret')]) {
+                   withCredentials([string(credentialsId: 'docker-secret', variable: 'dockersecret')]) {
                     sh 'docker login -u  rlateu -p ${dockersecret}'
 		    sh 'docker push rlateu/accademy:v1.0'
                  }
